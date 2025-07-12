@@ -182,7 +182,6 @@ public class MyDataList : BaseViewModel
         if (data is MyGroup group)
         {
             SetExpandedForGroup(group, !group.IsExpanded);
-
         }
     });
 }

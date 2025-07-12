@@ -25,6 +25,12 @@
                 Clicked="xamlDemoBinding_Clicked"
                 />
 
+            <Button
+                x:Name="xamlDemoCollectionView"
+                Text="CollectionView + Canvas Template"
+                Clicked="xamlDemoCollectionView_Clicked"
+                />
+
         </VerticalStackLayout>
     </ScrollView>
 

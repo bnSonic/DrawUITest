@@ -19,7 +19,10 @@
 
     <!-- Group Header -->
         <!-- x:DataType="viewmodels:MyGroup" -->
-    <components:MyTapSkiaLayout
+    <!-- <components:MyTapSkiaLayout -->
+    <draw:SkiaLayout
+        draw:AddGestures.CommandTapped="{Binding GroupTappedCommand}"
+        draw:AddGestures.CommandTappedParameter="{Binding .}"
         x:Name="xamlGroup"
         Type="Grid"
         RowSpacing="0"
@@ -29,7 +32,7 @@
         ColumnDefinitions="50, *"
         RowDefinitions="Auto"
         >
-
+       
         <draw:SkiaSvg 
             Grid.Column="0"
             HorizontalOptions="Center"
@@ -49,7 +52,8 @@
             TextColor="Black"
             />
 
-    </components:MyTapSkiaLayout>
+    <!-- </components:MyTapSkiaLayout> -->
+    </draw:SkiaLayout>
 
     <!-- Entry Daten -->
     <draw:SkiaLayout
