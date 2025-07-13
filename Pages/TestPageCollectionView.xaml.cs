@@ -10,7 +10,7 @@ public partial class TestPageCollectionView : ContentPage
 	{
 		InitializeComponent();
 
-		_myDataList = new MyDataList();
+		_myDataList = new MyDataList(MyItemRefreshType.ClearAndAddRange);
 		BindingContext = _myDataList;
 	}
 

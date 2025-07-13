@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
+    xmlns:cells="clr-namespace:DrawUITest.Pages.Cells"
+    x:Class="DrawUITest.Pages.TestPageCollectionView2"
+    Title="CollectionView + CanvasTemplate">
+    
+    <Grid
+        RowDefinitions="80, *">
+        <StackLayout
+            Grid.Row="0"
+            HorizontalOptions="Fill"
+            VerticalOptions="Center">
+            
+            <Label 
+                Text="CollectionView + CanvasTemplate + native Maui Gestures"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                />
+            <!-- <Label 
+                Text="Please tap on the group header to expand/collapse the items and see the null-exception"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                /> -->
+        </StackLayout>
+
+        <CollectionView
+            Grid.Row="1"
+            SelectionMode="None"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding Items}"
+            BackgroundColor="LightGray"
+            >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid 
+                        BackgroundColor="Red"
+                        RowDefinitions="*">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="TapGestureRecognizer_Tapped"/>
+                        </Grid.GestureRecognizers>
+                        <draw:Canvas
+                            Grid.Row="0"
+                            Gestures="Disabled"
+                            RenderingMode = "Default"
+                            BackgroundColor="WhiteSmoke"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Start"
+                            >
+
+                            <cells:MyCellTemplateBind 
+                                />
+
+                        </draw:Canvas>
+                        </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -27,4 +27,9 @@ public partial class MainPage : ContentPage
 		var page = new TestPageCollectionView();
 		await Navigation.PushAsync(page);
 	}
+	private async void xamlDemoCollectionView2_Clicked(object sender, EventArgs e)
+	{
+		var page = new TestPageCollectionView2();
+		await Navigation.PushAsync(page);
+	}
 }

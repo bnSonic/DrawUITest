@@ -11,7 +11,7 @@ public partial class TestPage1Bind : ContentPage
 	{
 		InitializeComponent();
 
-		_myDataList = new MyDataList();
+		_myDataList = new MyDataList(MyItemRefreshType.ReplaceWithNewCollection);
 
 		BindingContext = _myDataList;
 	}

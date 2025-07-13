@@ -3,8 +3,21 @@ using System.Collections.ObjectModel;
 
 namespace DrawUITest.ViewModels;
 
+public enum MyItemRefreshType
+{
+    ReplaceWithNewCollection,
+    ClearAndAddRange
+}
+
 public class MyDataList : BaseViewModel
 {
+    MyItemRefreshType _refreshType;
+    public MyDataList(MyItemRefreshType refreshType)
+    {
+        _refreshType = refreshType;
+    }
+    
+
     /// <summary>
     /// this is set from the Page; we need access to this view to scroll by code
     /// </summary>
@@ -22,7 +35,7 @@ public class MyDataList : BaseViewModel
     /// the Items Collection is refilled
     /// </summary>
     //public BulkObservableCollection<IMyData> Items { get; set; } = new();
-    public ObservableCollection<IMyData> Items { get; set; } = new();
+    public BulkObservableCollection<IMyData> Items { get; set; } = new();
 
     private List<string> _text1List = new()
     {
@@ -110,9 +123,16 @@ public class MyDataList : BaseViewModel
                 newItems.Add(i);
         }
 
-        //Items.AddRange(newItems, clearBeforeAdding: true);
-        Items = new BulkObservableCollection<IMyData>(newItems);
-        OnPropertyChanged(nameof(Items));
+        if (_refreshType == MyItemRefreshType.ReplaceWithNewCollection)
+        {
+            Items = new BulkObservableCollection<IMyData>(newItems);
+            OnPropertyChanged(nameof(Items));
+        }
+        else if (_refreshType == MyItemRefreshType.ClearAndAddRange)
+        {
+            Items.AddRange(newItems, clearBeforeAdding: true);
+        }
+
     }
 
     /// <summary>

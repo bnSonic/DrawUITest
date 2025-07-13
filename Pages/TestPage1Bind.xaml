@@ -7,52 +7,56 @@
              Title="Cells with Binding">
 
     
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            HorizontalOptions="Center" />
+    <Grid
+        RowDefinitions="100, *">
+        <StackLayout
+            Grid.Row="0">
+            <Label 
+                Text="Welcome to .NET MAUI!"
+                HorizontalOptions="Center" />
 
 
-        <draw:Canvas
-            HorizontalOptions="Fill"
-            VerticalOptions="Start"
-            HeightRequest="100">
+            <draw:Canvas
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                HeightRequest="100">
 
-            <draw:SkiaLayout
-                HorizontalOptions="Fill">
-
-
-   
                 <draw:SkiaLayout
-                    HorizontalOptions="Fill"
-                    RowSpacing="0"
-                    ColumnSpacing="0"
-                    
-                    BackgroundColor="LightCoral"
-                    Type="Grid"
-                    ColumnDefinitions="50, *"
-                    RowDefinitions="Auto">
+                    HorizontalOptions="Fill">
 
-                    <draw:SkiaLabel 
-                        Grid.Column="1"
-                        Margin="10, 0, 10, 0"
-                        Text="hallo"
-                        FontSize="15"
-                        TextColor="Black"/>
+
+    
+                    <draw:SkiaLayout
+                        HorizontalOptions="Fill"
+                        RowSpacing="0"
+                        ColumnSpacing="0"
+                        
+                        BackgroundColor="LightCoral"
+                        Type="Grid"
+                        ColumnDefinitions="50, *"
+                        RowDefinitions="Auto">
+
+                        <draw:SkiaLabel 
+                            Grid.Column="1"
+                            Margin="10, 0, 10, 0"
+                            Text="hallo"
+                            FontSize="15"
+                            TextColor="Black"/>
+                    </draw:SkiaLayout>
+
+
                 </draw:SkiaLayout>
-
-
-            </draw:SkiaLayout>
-        </draw:Canvas>
-
+            </draw:Canvas>
+        </StackLayout>
 
         <draw:Canvas
+            Grid.Row="1"
             Gestures="Enabled"
             RenderingMode = "Accelerated"
             BackgroundColor="WhiteSmoke"
             HorizontalOptions="Fill"
-            VerticalOptions="Start"
-            HeightRequest="500">
+            VerticalOptions="Fill"
+            >
             <draw:SkiaLayout
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill">
@@ -92,5 +96,5 @@
 
         </draw:Canvas>
 
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

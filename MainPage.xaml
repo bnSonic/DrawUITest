@@ -30,6 +30,11 @@
                 Text="CollectionView + Canvas Template"
                 Clicked="xamlDemoCollectionView_Clicked"
                 />
+            <Button
+                x:Name="xamlDemoCollectionView2"
+                Text="CollectionView + Canvas Template + native Gestures"
+                Clicked="xamlDemoCollectionView2_Clicked"
+                />
 
         </VerticalStackLayout>
     </ScrollView>
