@@ -13,34 +13,67 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a hovercraft number nine" />
 
-            <Button
-                x:Name="xamlDemoCodeBehind"
-                Text="DrawUI List with CodeBehind"
-                Clicked="xamlDemoCodeBehind_Clicked"
-                />
+            <Border
+                Padding="10"
+                BackgroundColor="#FFDDD2FB">
+                <VerticalStackLayout
+                    Spacing="20">
+                    <Label 
+                        Text="DrawUI + SkiaScroll + DataTemplate" 
+                        HorizontalOptions="Center"/>
+                    <Button
+                        x:Name="xamlDemoCodeBehind"
+                        Text="DrawUI List with CodeBehind"
+                        Clicked="xamlDemoCodeBehind_Clicked"
+                        />
 
-            <Button
-                x:Name="xamlDemoBinding"
-                Text="DrawUI List with Binding"
-                Clicked="xamlDemoBinding_Clicked"
-                />
+                    <Button
+                        x:Name="xamlDemoBinding"
+                        Text="DrawUI List with Binding"
+                        Clicked="xamlDemoBinding_Clicked"
+                        />
+                </VerticalStackLayout>
+            </Border>
 
-            <Button
-                x:Name="xamlDemoCollectionView"
-                Text="CollectionView + Canvas Template"
-                Clicked="xamlDemoCollectionView_Clicked"
-                />
-            <Button
-                x:Name="xamlDemoCollectionView2"
-                Text="CollectionView + Canvas Template + native Gestures"
-                Clicked="xamlDemoCollectionView2_Clicked"
-                />
+            <Border
+                Padding="10"
+                BackgroundColor="#FFFBF0D2">
+                <VerticalStackLayout
+                    Spacing="20">
+                    <Label 
+                        Text="CollectionView + DataTemplate with DrawUI Canvas" 
+                        HorizontalOptions="Center"/>
 
-            <Button
-                x:Name="xamlDemoDrawAll"
-                Text="DrawUI List - Put ALL Rows in Layout"
-                Clicked="xamlDemoDrawAll_Clicked"
-                />
+                    <Button
+                        x:Name="xamlDemoCollectionView"
+                        Text="CollectionView + Canvas Template"
+                        Clicked="xamlDemoCollectionView_Clicked"
+                        />
+                    <Button
+                        x:Name="xamlDemoCollectionView2"
+                        LineBreakMode="WordWrap"
+                        Text="CollectionView + Canvas Template + native Gestures"
+                        Clicked="xamlDemoCollectionView2_Clicked"
+                        />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="10"
+                BackgroundColor="#FFFBE1D2">
+                <VerticalStackLayout
+                    Spacing="20">
+                    <Label 
+                        Text="DrawUI + SkiaScroll: NO DataTemplate! Brute Force Painting everything" 
+                        HorizontalOptions="Center"/>
+
+                    <Button
+                        x:Name="xamlDemoDrawAll"
+                        Text="DrawUI List - Put ALL Rows in Layout"
+                        Clicked="xamlDemoDrawAll_Clicked"
+                        />
+                </VerticalStackLayout>
+            </Border>
 
         </VerticalStackLayout>
     </ScrollView>
