@@ -3,28 +3,15 @@ using System.Collections.ObjectModel;
 
 namespace DrawUITest.ViewModels;
 
-public enum MyItemRefreshType
-{
-    ReplaceWithNewCollection, //for SkiaScroll; Set new Items collection to hold Scroll Position
-    ClearAndAddRange, //for CollectionView; Clear Items and add new ones to hold Scroll Position
-    HoldItemsChangeProperties //for DrawAll; just switch IsVisible and other properties if needed
-}
 
-public class MyDataList : BaseViewModel
+public class MyDataListPaged : BaseViewModel
 {
     MyItemRefreshType _refreshType;
-    public MyDataList(MyItemRefreshType refreshType)
+    public MyDataListPaged(MyItemRefreshType refreshType)
     {
         _refreshType = refreshType;
     }
     
-
-    /// <summary>
-    /// this is set from the Page; we need access to this view to scroll by code
-    /// </summary>
-    // public MyCollectionView MyCollectionView { get; set; }
-    // public MyListView MyListView{ get; set; }
-
     /// <summary>
     /// this one holds all the Data loaded from database for a view
     /// </summary>
@@ -35,8 +22,13 @@ public class MyDataList : BaseViewModel
     /// For example: if you do a search/range-filter or if you open/close groups
     /// the Items Collection is refilled
     /// </summary>
-    //public BulkObservableCollection<IMyData> Items { get; set; } = new();
     public BulkObservableCollection<IMyData> Items { get; set; } = new();
+
+    private Command _loadMoreCommand;
+    public Command LoadMoreCommand => _loadMoreCommand ??= new Command(() =>
+    {
+        LoadMore(5);
+    });
 
     private List<string> _text1List = new()
     {
@@ -73,19 +65,21 @@ public class MyDataList : BaseViewModel
         Data.Clear();
 
         int counter = 0;
-        DateTime dt = new DateTime(2025, 06, 26);
+        //DateTime dt = new DateTime(2025, 06, 26);
+        int groupNr = 0;
 
         var newData = new List<IMyData>();
         while (counter < 100)
         {
             if (counter % 10 == 0)
             {
-                dt = dt.AddDays(1);
+                //dt = dt.AddDays(1);
+                groupNr++;
             }
 
             var entry = new MyData(
                 counter,
-                dt.ToString("dd.MM.yyyy"),
+                groupNr.ToString(), //dt.ToString("dd.MM.yyyy"),
                 counter + ": " + _text1List[counter % _text1List.Count],
                 _text2List[counter % _text2List.Count],
                 _text3List[counter % _text3List.Count]
@@ -99,46 +93,57 @@ public class MyDataList : BaseViewModel
 
         Data = SortAndGroup(newData);
 
-        RefreshItems();
+        //RefreshItems(20);
+        LoadMore(15);
     }
 
     /// <summary>
     /// Refills the Items by selecting from Data
     /// </summary>
-    public void RefreshItems()
+    public void RefreshItems(int howMany)
     {
         var newItems = new List<IMyData>();
 
-        // int counter = 0;
-        // foreach (var i in Data)
-        // {
-        //     newItems.Add(i);
-        //     counter++;
-
-        //     if (counter > howMany)
-        //         break;
-        // }
+        int counter = 0;
         foreach (var i in Data)
         {
-            if (i.IsVisible)
-                newItems.Add(i);
-        }
+            newItems.Add(i);
+            counter++;
 
-        if (_refreshType == MyItemRefreshType.ReplaceWithNewCollection)
+            if (counter > howMany)
+                break;
+        }
+        // foreach (var i in Data)
+        // {
+        //     if (i.IsVisible)
+        //         newItems.Add(i);
+        // }
+
+        if (_refreshType == MyItemRefreshType.HoldItemsChangeProperties)
         {
             Items = new BulkObservableCollection<IMyData>(newItems);
             OnPropertyChanged(nameof(Items));
         }
-        else if (_refreshType == MyItemRefreshType.ClearAndAddRange)
+
+    }
+
+    private void LoadMore(int howMany)
+    {
+        var newItems = new List<IMyData>();
+
+        int counter = 0;
+        int startIndex = Items.Count;
+        for (int i = startIndex; i < Data.Count && counter < howMany; i++)
         {
-            Items.AddRange(newItems, clearBeforeAdding: true);
-        }
-        else if (_refreshType == MyItemRefreshType.HoldItemsChangeProperties)
-        {
-            Items = new BulkObservableCollection<IMyData>(newItems);
-            OnPropertyChanged(nameof(Items));
+            var iData = Data[i];
+            newItems.Add(iData);
+            counter++;
         }
 
+        if (_refreshType == MyItemRefreshType.HoldItemsChangeProperties)
+        {
+            Items.AddRange(newItems, clearBeforeAdding: false);
+        }
     }
 
     /// <summary>
@@ -189,7 +194,7 @@ public class MyDataList : BaseViewModel
         }
         
         //-- refresh Items
-        RefreshItems();
+        //RefreshItems();
 
         //-- when expanded: scroll to the first child
         // if (expanded)

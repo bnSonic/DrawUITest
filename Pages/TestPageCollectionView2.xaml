@@ -51,7 +51,7 @@
                             VerticalOptions="Start"
                             >
 
-                            <cells:MyCellTemplateBind 
+                            <cells:MyCellTemplateBind2 
                                 />
 
                         </draw:Canvas>

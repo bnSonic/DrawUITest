@@ -65,7 +65,7 @@
         HorizontalOptions="Fill"
         BackgroundColor="White"
         ColumnDefinitions="50, *"
-        RowDefinitions="Auto"
+        RowDefinitions="*"
         >
 
         <draw:SkiaLayout

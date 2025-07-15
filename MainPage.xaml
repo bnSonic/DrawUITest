@@ -36,6 +36,12 @@
                 Clicked="xamlDemoCollectionView2_Clicked"
                 />
 
+            <Button
+                x:Name="xamlDemoDrawAll"
+                Text="DrawUI List - Put ALL Rows in Layout"
+                Clicked="xamlDemoDrawAll_Clicked"
+                />
+
         </VerticalStackLayout>
     </ScrollView>
 

@@ -28,7 +28,7 @@
         HorizontalOptions="Fill"
         BackgroundColor="Green"
         ColumnDefinitions="50, *"
-        RowDefinitions="Auto"
+        RowDefinitions="*"
         >
        
         <draw:SkiaSvg 
@@ -63,7 +63,7 @@
         HorizontalOptions="Fill"
         BackgroundColor="White"
         ColumnDefinitions="50, *"
-        RowDefinitions="Auto"
+        RowDefinitions="*"
         >
 
         <draw:SkiaLayout

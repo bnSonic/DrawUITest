@@ -31,7 +31,7 @@
             SelectionMode="None"
             ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding Items}"
-            BackgroundColor="LightGray"
+            BackgroundColor="Red"
             >
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -48,22 +48,6 @@
 
                     </draw:Canvas>
                     
-                    <!-- <draw:Canvas
-                        HorizontalOptions="Fill"
-                        VerticalOptions="Start"
-                        HeightRequest="100">
-                        <draw:SkiaLayout
-                            HorizontalOptions="Fill"
-                            VerticalOptions="Start"
-                            Type="Column"
-                            BackgroundColor="LightCoral">
-                            <draw:SkiaLabel 
-                                Margin="10, 0, 10, 0"
-                                Text="{Binding Text1}"
-                                FontSize="15"
-                                TextColor="Black"/>
-                        </draw:SkiaLayout>
-                    </draw:Canvas> -->
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

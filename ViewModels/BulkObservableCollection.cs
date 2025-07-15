@@ -34,7 +34,14 @@ public class BulkObservableCollection<T> : ObservableCollection<T>
         finally
         {
             _suppressNotification = false;
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            if (clearBeforeAdding)
+            {
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+            else
+            {
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items.ToList()));
+            }
         }
     }
 

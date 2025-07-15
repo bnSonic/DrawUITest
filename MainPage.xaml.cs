@@ -21,7 +21,7 @@ public partial class MainPage : ContentPage
 		var page = new TestPage1Bind();
 		await Navigation.PushAsync(page);
 	}
-	
+
 	private async void xamlDemoCollectionView_Clicked(object sender, EventArgs e)
 	{
 		var page = new TestPageCollectionView();
@@ -30,6 +30,12 @@ public partial class MainPage : ContentPage
 	private async void xamlDemoCollectionView2_Clicked(object sender, EventArgs e)
 	{
 		var page = new TestPageCollectionView2();
+		await Navigation.PushAsync(page);
+	}
+	
+	private async void xamlDemoDrawAll_Clicked(object sender, EventArgs e)
+	{
+		var page = new TestPage1DrawAll();
 		await Navigation.PushAsync(page);
 	}
 }

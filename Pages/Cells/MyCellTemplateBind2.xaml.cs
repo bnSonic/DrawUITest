@@ -1,4 +1,5 @@
 using DrawnUi.Draw;
+using DrawnUi.Views;
 using DrawUITest.ViewModels;
 
 namespace DrawUITest.Pages.Cells;
@@ -37,5 +38,7 @@ public partial class MyCellTemplateBind2 : SkiaLayout
 
 			SetContentFull(item);
 		}
+
+		
 	}
 }
