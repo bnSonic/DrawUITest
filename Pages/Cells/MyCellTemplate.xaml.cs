@@ -1,87 +1,123 @@
+using System.ComponentModel;
+using AppoMobi.Specials;
+using DrawnUi.Controls;
 using DrawnUi.Draw;
+using DrawUITest.Components;
 using DrawUITest.ViewModels;
 
 namespace DrawUITest.Pages.Cells;
 
-public partial class MyCellTemplate : SkiaLayout
+public class AppCell : SkiaDynamicDrawnCell
 {
-	public MyCellTemplate()
-	{
-		InitializeComponent();
-	}
+}
 
-	public void xamlGroup_Tapped(object sender, SkiaGesturesParameters skiaGesturesParameters)
-	{
-		if (BindingContext is MyGroup group)
-		{
-			group.GroupTappedCommand.Execute(group);
-		}
-	}
+public partial class MyCellTemplate : AppCell
+{
+    public MyCellTemplate()
+    {
+        InitializeComponent();
+    }
 
-	private void SetGroupContent(MyGroup group)
-	{
-		xamlGroup.IsVisible = true;
-		xamlEntry.IsVisible = false;
+    /// <summary>
+    /// Dynamic changes
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected override void ContextPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        base.ContextPropertyChanged(sender, e);
 
-		xamlGroupTitle.Text = group.Title;
-		xamlGroupExpandIndicator.SvgString = group.ExpandIndicatorSvg;
-	}
+        if (BindingContext is MyGroup group)
+        {
+            if (e.PropertyName == nameof(MyGroup.IsExpanded))
+            {
+                SetupGroupState(group, true);
+            }
+        }
+    }
 
-	private void SetItemContent(MyData item)
-	{
-		xamlGroup.IsVisible = false;
-		xamlEntry.IsVisible = true;
+    /// <summary>
+    /// BindingContext changed
+    /// </summary>
+    /// <param name="ctx"></param>
+    protected override void SetContent(object ctx)
+    {
+        base.SetContent(ctx);
 
-		xamlItemText1.IsVisible = !string.IsNullOrEmpty(item.Text1);
-		xamlItemText2.IsVisible = !string.IsNullOrEmpty(item.Text2);
-		xamlItemText3.IsVisible = !string.IsNullOrEmpty(item.Text3);
-		xamlItemText1.Text = item.Text1;
-		xamlItemText2.Text = item.Text2;
-		xamlItemText3.Text = item.Text3;
+        var item = ctx as IMyData;
+        if (item != null)
+        {
+            if (item.DataType == MyDataType.Group)
+            {
+                SetGroupContent(item as MyGroup);
+            }
+            else if (item.DataType == MyDataType.Data)
+            {
+                SetItemContent(item as MyData);
+            }
+        }
+    }
 
-		xamlLinePrev.IsVisible = item.HasPrev;
-		xamlLineNext.IsVisible = item.HasNext;
+    private void SetGroupContent(MyGroup group)
+    {
+        xamlGroup.IsVisible = true;
+        xamlEntry.IsVisible = false;
 
-		xamlItemIcon.SvgString = item.Icon;
-	}
+        xamlGroupTitle.Text = group.Title;
 
-	private void SetContentFull(IMyData item)
-	{
-		if (item.DataType == MyDataType.Group)
-		{
-			SetGroupContent(item as MyGroup);
-			xamlGroup.Update();
-		}
-		else if (item.DataType == MyDataType.Data)
-		{
-			SetItemContent(item as MyData);
-			xamlEntry.Update();
-		}
+        SetupGroupState(group, false);
+    }
 
-		Update();
-	}
-	IMyData _oldItem = null;
-	protected override void OnBindingContextChanged()
-	{
-		base.OnBindingContextChanged();
+    void SetupGroupState(MyGroup group, bool needScroll)
+    {
+        xamlGroupExpandIndicator.SvgString = group.IsExpanded
+            ? SvgCache.GetSvgString("arrow_down")
+            : SvgCache.GetSvgString("arrow_right");
 
-		var item = BindingContext as IMyData;
-		if (item != null && item != _oldItem)
-		{
-			_oldItem = item;
+        xamlGroup.BackgroundColor = group.IsExpanded
+            ? xamlGroup.BackgroundColor.WithAlpha(1)
+            : xamlGroup.BackgroundColor.WithAlpha(0.85f);
 
-			// if (item.DataType == MyDataType.Group)
-			// {
-			// 	xamlGroup.IsVisible = true;
-			// 	xamlEntry.IsVisible = false;
-			// }
-			// else if (item.DataType == MyDataType.Data)
-			// {
-			// 	xamlGroup.IsVisible = false;
-			// 	xamlEntry.IsVisible = true;
-			// }
+        var count = group.Children.Count;
+        if (Parent is SkiaLayout layout)
+        {
+            layout.ReportChildVisibilityChanged(this.ContextIndex + 1, count, group.IsExpanded);
 
-			SetContentFull(item);
-		}
-	}
+            if (needScroll)
+            {
+                if (layout.Parent is SkiaScroll scroll)
+                {
+                    if (group.IsExpanded)
+                    {
+                        Tasks.StartDelayed(TimeSpan.FromMilliseconds(50),
+                            () => { scroll.ScrollToIndex(this.ContextIndex, true, RelativePositionType.Start, true); });
+                    }
+                    else
+                    {
+                        Tasks.StartDelayed(TimeSpan.FromMilliseconds(50),
+                            () => { scroll.ScrollToIndex(this.ContextIndex, true, RelativePositionType.Center, true); });
+                    }
+                }
+            }
+        }
+    }
+
+    private void SetItemContent(MyData item)
+    {
+        xamlGroup.IsVisible = false;
+
+        xamlEntry.IsVisible = true;
+
+        xamlItemText1.IsVisible = !string.IsNullOrEmpty(item.Text1);
+        xamlItemText2.IsVisible = !string.IsNullOrEmpty(item.Text2);
+        xamlItemText3.IsVisible = !string.IsNullOrEmpty(item.Text3);
+        xamlItemText1.Text = item.Text1;
+        xamlItemText2.Text = item.Text2;
+        xamlItemText3.Text = item.Text3;
+
+        xamlLinePrev.IsVisible = item.HasPrev;
+        xamlLineNext.IsVisible = item.HasNext;
+
+        xamlItemIcon.SvgString = item.Icon;
+    }
 }

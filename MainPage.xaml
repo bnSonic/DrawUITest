@@ -15,7 +15,7 @@
 
             <Button
                 x:Name="xamlDemoCodeBehind"
-                Text="DrawUI List with CodeBehind"
+                Text="DrawUI Preview CodeBehind"
                 Clicked="xamlDemoCodeBehind_Clicked"
                 />
 

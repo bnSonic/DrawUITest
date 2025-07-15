@@ -13,6 +13,8 @@ public class MyTapSkiaLayout : SkiaLayout
             if (BindingContext is MyGroup group)
             {
                 group.GroupTappedCommand.Execute(group);
+                
+                return this;
             }
         }
         return base.ProcessGestures(args, apply);

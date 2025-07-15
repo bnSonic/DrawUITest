@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using AppoMobi.Specials;
 
 namespace DrawUITest.ViewModels;
 
@@ -23,6 +24,8 @@ public class MyDataList : BaseViewModel
     /// </summary>
     //public BulkObservableCollection<IMyData> Items { get; set; } = new();
     public ObservableCollection<IMyData> Items { get; set; } = new();
+
+    public ObservableRangeCollection<MyGroup> Groups { get; set; } = new();
 
     private List<string> _text1List = new()
     {
@@ -62,7 +65,7 @@ public class MyDataList : BaseViewModel
         DateTime dt = new DateTime(2025, 06, 26);
 
         var newData = new List<IMyData>();
-        while (counter < 100)
+        while (counter < 500)
         {
             if (counter % 10 == 0)
             {
@@ -86,6 +89,41 @@ public class MyDataList : BaseViewModel
         Data = SortAndGroup(newData);
 
         RefreshItems();
+    }
+
+    /// <summary>
+    /// NEW groups approach: something to load "all" data from database 
+    /// </summary>
+    public void LoadDataGroups()
+    {
+        Data.Clear();
+
+        int counter = 0;
+        DateTime dt = new DateTime(2025, 06, 26);
+
+        var newData = new List<IMyData>();
+        while (counter < 200)
+        {
+            if (counter % 10 == 0)
+            {
+                dt = dt.AddDays(1);
+            }
+
+            var entry = new MyData(
+                counter,
+                dt.ToString("dd.MM.yyyy"),
+                _text1List[counter % _text1List.Count],
+                _text2List[counter % _text2List.Count],
+                _text3List[counter % _text3List.Count]
+            );
+
+            entry.IsVisible = false; //default 
+            newData.Add(entry);
+
+            counter++;
+        }
+
+        Groups.AddRange(CreateGroups(newData));
     }
 
     /// <summary>
@@ -113,6 +151,45 @@ public class MyDataList : BaseViewModel
         //Items.AddRange(newItems, clearBeforeAdding: true);
         Items = new BulkObservableCollection<IMyData>(newItems);
         OnPropertyChanged(nameof(Items));
+
+
+    }
+
+    /// <summary>
+    /// Creates groups from data and returns a list of MyGroup objects, each containing their children.
+    /// This replaces the flat list approach for better performance during expand/collapse operations.
+    /// </summary>
+    public List<MyGroup> CreateGroups(List<IMyData> data)
+    {
+        var sortedData = data
+            .Where(i => i.DataType == MyDataType.Data)
+            .OrderBy(i => i.GroupKey)
+            .ToList();
+
+        var groups = new List<MyGroup>();
+
+        string lastGroupKey = string.Empty;
+        MyGroup currentGroup = null;
+
+        foreach (var entry in sortedData)
+        {
+            if (entry.GroupKey != lastGroupKey)
+            {
+                currentGroup = new MyGroup(entry.GroupKey, entry.GroupKey);
+                currentGroup.GroupTappedCommand = this.GroupTappedCommand;
+                currentGroup.IsVisible = true;
+                currentGroup.IsExpanded = true;
+                groups.Add(currentGroup);
+
+                lastGroupKey = entry.GroupKey;
+            }
+
+            entry.IsVisible = true;
+            entry.Parent = currentGroup;
+            currentGroup.Children.Add(entry);
+        }
+
+        return groups;
     }
 
     /// <summary>
@@ -129,14 +206,16 @@ public class MyDataList : BaseViewModel
 
         string lastGroupKey = string.Empty;
         MyGroup lastGroup = null;
+        int index = -1;
         foreach (var entry in sortedData)
         {
             if (entry.GroupKey != lastGroupKey)
             {
+                index++;
                 lastGroup = new MyGroup(entry.GroupKey, entry.GroupKey);
                 lastGroup.GroupTappedCommand = this.GroupTappedCommand;
                 lastGroup.IsVisible = true; //default
-                lastGroup.IsExpanded = true; //default collapsed
+                lastGroup.IsExpanded = true;
                 groupedData.Add(lastGroup);
 
                 lastGroupKey = entry.GroupKey;
@@ -152,28 +231,7 @@ public class MyDataList : BaseViewModel
 
     private void SetExpandedForGroup(MyGroup group, bool expanded)
     {
-        group.IsExpanded = expanded;
-
-        //-- set visibility for children
-        group.Children.ForEach(i => i.IsVisible = expanded);
-
-        //-- refresh Items
-        RefreshItems();
-
-        //-- when expanded: scroll to the first child
-        // if (expanded)
-        // {
-        //     if (MyCollectionView != null)
-        //     {
-        //         var firstChild = group.Children.First();
-        //         MyCollectionView.CollectionView.ScrollTo(item: firstChild, position: ScrollToPosition.MakeVisible);
-        //     }
-        //     else if (MyListView != null)
-        //     {
-        //         var firstChild = group.Children.First();
-        //         MyListView.ListView.ScrollTo(item: firstChild, position: ScrollToPosition.MakeVisible, animated: true);
-        //     }
-        // }
+        group.IsExpanded = expanded; // header cell will do the rest
     }
 
     private Command _groupTappedCommand;
@@ -182,7 +240,6 @@ public class MyDataList : BaseViewModel
         if (data is MyGroup group)
         {
             SetExpandedForGroup(group, !group.IsExpanded);
-
         }
     });
 }

@@ -1,56 +1,61 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<draw:SkiaLayout xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
-		xmlns:components="clr-namespace:DrawUITest.Components"
-		xmlns:viewmodels="clr-namespace:DrawUITest.ViewModels"
-				 x:Class="DrawUITest.Pages.Cells.MyCellTemplate"
-             
-            HorizontalOptions="Fill"
-            BackgroundColor="Red"
-            
-            >
-    <draw:SkiaLayout.Resources>
+<?xml version="1.0" encoding="utf-8"?>
+
+<cells:AppCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
+              xmlns:components="clr-namespace:DrawUITest.Components"
+              xmlns:viewmodels="clr-namespace:DrawUITest.ViewModels"
+              xmlns:cells="clr-namespace:DrawUITest.Pages.Cells"
+              x:Class="DrawUITest.Pages.Cells.MyCellTemplate"
+              HorizontalOptions="Fill"
+              UseCache="ImageDoubleBuffered">
+
+    <cells:AppCell.Resources>
         <ResourceDictionary>
-            <components:EmptyValueToBoolConverter x:Key="EmptyValueToBoolConverter"/>
+            <components:EmptyValueToBoolConverter x:Key="EmptyValueToBoolConverter" />
         </ResourceDictionary>
 
-    </draw:SkiaLayout.Resources>
+    </cells:AppCell.Resources>
 
-    <!-- Group Header -->
+    <!-- Group Header - xamlGroup -->
     <components:MyTapSkiaLayout
+        HeightRequest="50"
+        Tag="MyGroup"
+        UseCache="Operations"
         x:Name="xamlGroup"
         Type="Grid"
         RowSpacing="0"
         ColumnSpacing="0"
         HorizontalOptions="Fill"
         BackgroundColor="Green"
-        ColumnDefinitions="50, *"
-        RowDefinitions="Auto">
+        ColumnDefinitions="50, *">
 
-        <draw:SkiaSvg 
+        <draw:SkiaSvg
+            UseCache="Operations"
             x:Name="xamlGroupExpandIndicator"
             Grid.Column="0"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             LockRatio="1"
-            WidthRequest="15"
-            />
+            TintColor="White"
+            WidthRequest="15" />
 
-            <!-- Text="{Binding Title}" -->
+        <!-- Text="{Binding Title}" -->
         <draw:SkiaLabel
+            VerticalOptions="Center"
             x:Name="xamlGroupTitle"
             Grid.Column="1"
             Margin="10, 10, 10, 10"
             FontSize="15"
-            TextColor="Black"
-            UseCache="Operations"/>
+            TextColor="White"
+            UseCache="Operations" />
 
     </components:MyTapSkiaLayout>
 
-    <!-- Entry Daten -->
-        <!-- x:DataType="viewmodels:MyData" -->
+    <!-- Entry Daten - xamlEntry -->
     <draw:SkiaLayout
+        Tag="MyData"
+        UseCache="Operations"
         x:Name="xamlEntry"
         Type="Grid"
         RowSpacing="0"
@@ -60,41 +65,42 @@
         ColumnDefinitions="50, *"
         RowDefinitions="Auto">
 
+        <!--LINES PREV NEXT-->
         <draw:SkiaLayout
+            UseCache="Operations"
             Grid.Column="0"
             Type="Grid"
             RowSpacing="0"
             ColumnDefinitions="*"
-            RowDefinitions="*, *"
-            >
-                <!-- IsVisible="{Binding HasPrev}" -->
-            <draw:SkiaControl 
+            RowDefinitions="*, *">
+            <!-- IsVisible="{Binding HasPrev}" -->
+            <draw:SkiaControl
                 x:Name="xamlLinePrev"
                 Grid.Row="0"
                 VerticalOptions="Fill"
                 HorizontalOptions="Center"
                 WidthRequest="5"
-                BackgroundColor="Blue"
-                />
+                BackgroundColor="Blue" />
 
-                <!-- IsVisible="{Binding HasNext}" -->
-            <draw:SkiaControl 
+            <!-- IsVisible="{Binding HasNext}" -->
+            <draw:SkiaControl
                 x:Name="xamlLineNext"
                 Grid.Row="1"
                 VerticalOptions="Fill"
                 HorizontalOptions="Center"
                 WidthRequest="5"
-                BackgroundColor="Blue"
-                />
+                BackgroundColor="Blue" />
 
         </draw:SkiaLayout>
 
+        <!--ICON CIRCLE-->
         <draw:SkiaLayout
+            Tag="IconCircle"
+            UseCache="Operations"
             Grid.Column="0"
             HeightRequest="50"
             HorizontalOptions="Fill"
-            VerticalOptions="Center" 
-            >
+            VerticalOptions="Center">
             <draw:SkiaShape
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
@@ -104,25 +110,25 @@
                 Tag="ShapePath"
                 Type="Circle"
                 WidthRequest="40"
-                LockRatio="1"
-                />
-            <draw:SkiaSvg 
+                LockRatio="1" />
+            <draw:SkiaSvg
                 x:Name="xamlItemIcon"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 LockRatio="1"
-                WidthRequest="20"
-                />
+                WidthRequest="20" />
         </draw:SkiaLayout>
 
+        <!--TEXT-->
         <draw:SkiaLayout
             Grid.Column="1"
+            UseCache="Operations"
             HorizontalOptions="Fill"
             VerticalOptions="Center"
             Type="Column"
             Spacing="0">
 
-                <!-- IsVisible="{Binding Text1, Converter={StaticResource EmptyValueToBoolConverter}}"
+            <!-- IsVisible="{Binding Text1, Converter={StaticResource EmptyValueToBoolConverter}}"
                 Text="{Binding Text1}" -->
             <draw:SkiaLabel
                 x:Name="xamlItemText1"
@@ -130,9 +136,9 @@
                 FontSize="15"
                 Tag="Text1"
                 TextColor="Black"
-                UseCache="Operations"/>
+                UseCache="Operations" />
 
-                <!-- IsVisible="{Binding Text2, Converter={StaticResource EmptyValueToBoolConverter}}"
+            <!-- IsVisible="{Binding Text2, Converter={StaticResource EmptyValueToBoolConverter}}"
                 Text="{Binding Text2}" -->
             <draw:SkiaLabel
                 x:Name="xamlItemText2"
@@ -140,27 +146,29 @@
                 FontSize="13"
                 Tag="Text2"
                 TextColor="DarkGray"
-                UseCache="Operations"/>
+                UseCache="Operations" />
 
-                <!-- IsVisible="{Binding Text3, Converter={StaticResource EmptyValueToBoolConverter}}"
+            <!-- IsVisible="{Binding Text3, Converter={StaticResource EmptyValueToBoolConverter}}"
                 Text="{Binding Text3}" -->
             <draw:SkiaLabel
                 x:Name="xamlItemText3"
                 Margin="10, 5, 10, 5"
                 FontSize="13"
                 Tag="Text3"
-                TextColor="DarkGray" 
-                UseCache="Operations"/>
+                TextColor="DarkGray"
+                UseCache="Operations" />
 
         </draw:SkiaLayout>
 
-        <draw:SkiaControl 
+        <!--SEPARATOR LINE-->
+        <draw:SkiaControl
+            UseCache="Operations"
             Grid.Column="1"
             HorizontalOptions="Fill"
-            VerticalOptions="End"
+            VerticalOptions="Start"
             HeightRequest="1"
-            BackgroundColor="Green"
-            />
+            BackgroundColor="Green" />
+
     </draw:SkiaLayout>
 
-</draw:SkiaLayout>
+</cells:AppCell>

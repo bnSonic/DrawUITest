@@ -1,160 +1,71 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
-		xmlns:cells="clr-namespace:DrawUITest.Pages.Cells"
-			 x:Class="DrawUITest.Pages.TestPage1CB"
+             xmlns:cells="clr-namespace:DrawUITest.Pages.Cells"
+             xmlns:viewModels="clr-namespace:DrawUITest.ViewModels"
+             x:Class="DrawUITest.Pages.TestPage1CB"
+             x:DataType="viewModels:MyDataList"
              Title="Cells using CodeBehind; No Binding">
 
-    <!-- <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:MyDataTemplateSelector x:Key="DataTemplateSelector"/>
-        </ResourceDictionary>
-    </ContentPage.Resources> -->
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            HorizontalOptions="Center" />
 
-        <!-- <draw:Canvas
-            BackgroundColor="WhiteSmoke"
-            HorizontalOptions="Fill">
-            <draw:SkiaLayout
-                HorizontalOptions="Fill"
-                Type="Column"
-                Spacing="0">
-                <draw:SkiaImage
-                    Source="dotnet_bot.png"
-                    LockRatio="1"
-                    WidthRequest="44" 
-                    HorizontalOptions="Center"/>
-                <draw:SkiaLabel
-                    Text="Hallo Welt" 
-                    TextColor="Blue"
-                    FontSize="15"
-                    HorizontalOptions="Center"/>
-            </draw:SkiaLayout>
+    <draw:Canvas
+        Gestures="Enabled"
+        RenderingMode="Accelerated"
+        BackgroundColor="WhiteSmoke"
+        HorizontalOptions="Fill"
+        VerticalOptions="Fill">
 
-        </draw:Canvas> -->
-
-        <draw:Canvas
+        <draw:SkiaLayout
             HorizontalOptions="Fill"
-            VerticalOptions="Start"
-            HeightRequest="100">
+            VerticalOptions="Fill">
 
-            <draw:SkiaLayout
-                HorizontalOptions="Fill">
-
-
-   
-                <draw:SkiaLayout
-                    HorizontalOptions="Fill"
-                    RowSpacing="0"
-                    ColumnSpacing="0"
-                    
-                    BackgroundColor="LightCoral"
-                    Type="Grid"
-                    ColumnDefinitions="50, *"
-                    RowDefinitions="Auto">
-
-                    <draw:SkiaLabel 
-                        Grid.Column="1"
-                        Margin="10, 0, 10, 0"
-                        Text="hallo"
-                        FontSize="15"
-                        TextColor="Black"/>
-                </draw:SkiaLayout>
-
-
-            </draw:SkiaLayout>
-        </draw:Canvas>
-
-
-        <draw:Canvas
-            Gestures="Enabled"
-            RenderingMode = "Accelerated"
-            BackgroundColor="WhiteSmoke"
-            HorizontalOptions="Fill"
-            VerticalOptions="Start"
-            HeightRequest="500">
-            <draw:SkiaLayout
+            <draw:SkiaScroll
+                Orientation="Vertical"
+                FrictionScrolled="0.35"
+                ChangeVelocityScrolled="0.9"
+                IgnoreWrongDirection="True"
                 HorizontalOptions="Fill"
-                VerticalOptions="Fill">
+                VerticalOptions="Fill"
+                Bounces="True">
 
-                <draw:SkiaScroll
-                    Orientation="Vertical"
-                    FrictionScrolled="0.4"
-                    IgnoreWrongDirection="True"
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Fill"
-                    Bounces="True"
-                    >
+                <draw:SkiaStack
+                    ItemTemplateType="{x:Type cells:MyCellTemplate}"
+                    x:Name="StackCells"
+                    Tag="Debug"
 
-                    <draw:SkiaLayout
-                        HorizontalOptions="Fill"
-                        MeasureItemsStrategy="MeasureAll"
-                        ItemsSource="{Binding Items}"
-                        RecyclingTemplate="Enabled"
-                        Type="Column"
-                        Spacing="0">
-                        
-                        <draw:SkiaLayout.ItemTemplate>
-                            <DataTemplate>
-                                <cells:MyCellTemplate />
-                            </DataTemplate>
-                        </draw:SkiaLayout.ItemTemplate>
+                    RecyclingTemplate="Enabled"
+                    MeasureItemsStrategy="MeasureVisible"
+                    ItemsSource="{Binding Items}"
+                    Spacing="0"/>
 
-                        <!-- <draw:SkiaLayout.ItemTemplate>
-                            <DataTemplate>
+            </draw:SkiaScroll>
 
-                                <draw:SkiaLayout
-                                    BackgroundColor="LightGray"
-                                    HorizontalOptions="Fill"
-                                    Type="Column"
-                                    Spacing="0">
-                                    <draw:SkiaLabel
-                                        Margin="10, 0, 10, 0"
-                                        Padding="8,4"
-                                        BackgroundColor="#8D5BBC"
-                                        FontSize="14"
-                                        Tag="LabelText"
-                                        Text="{Binding Title}"
-                                        TextColor="White"
-                                        UseCache="Operations" />
+            <draw:SkiaLabel
+                Margin="8,0,8,50"
+                Padding="2"
+                UseCache="Operations"
+                BackgroundColor="Black"
+                HorizontalOptions="Fill"
+                InputTransparent="True"
+                Text="{Binding Source={x:Reference StackCells}, Path=DebugString}"
+                TextColor="Lime"
+                VerticalOptions="End" />
 
-                                    <draw:SkiaLabel
-                                        Margin="10, 0, 10, 0"
-                                        Padding="8,4"
-                                        BackgroundColor="Transparent"
-                                        FontSize="14"
-                                        Tag="LabelText"
-                                        Text="{Binding Text1}"
-                                        TextColor="Black"
-                                        UseCache="Operations" />
-                                    <draw:SkiaLabel
-                                        Margin="10, 0, 10, 0"
-                                        Padding="0"
-                                        BackgroundColor="Transparent"
-                                        FontSize="14"
-                                        Tag="LabelText"
-                                        Text="{Binding Text1}"
-                                        TextColor="Black"
-                                        UseCache="Operations" />
-                                </draw:SkiaLayout>
-                                
+            <draw:SkiaLabelFps
+                Margin="0,0,4,24"
+                BackgroundColor="DarkRed"
+                ForceRefresh="False"
+                HorizontalOptions="End"
+                Rotation="-45"
+                TextColor="White"
+                VerticalOptions="End"
+                ZIndex="100" />
 
-                            </DataTemplate>
+        </draw:SkiaLayout>
 
-                        </draw:SkiaLayout.ItemTemplate> -->
+    </draw:Canvas>
 
-                    </draw:SkiaLayout>
-                    
-                </draw:SkiaScroll>
 
-            </draw:SkiaLayout>
-
-        </draw:Canvas>
-
-    </VerticalStackLayout>
 </ContentPage>

@@ -8,9 +8,17 @@ public static class MauiProgram
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.UseDrawnUi()
+        builder
+            .UseMauiApp<App>()
+            .UseDrawnUi(new()
+            {
+                DesktopWindow = new()
+                {
+                    Width = 370,
+                    Height = 750,
+                    //IsFixedSize = true
+                }
+            })
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

@@ -1,3 +1,4 @@
+using DrawnUi.Draw;
 using DrawUITest.Pages.Cells;
 using DrawUITest.ViewModels;
 
@@ -23,5 +24,6 @@ public partial class TestPage1CB : ContentPage
 		//-- load data 
 		_myDataList.LoadData();
 	}
+
 }
 
