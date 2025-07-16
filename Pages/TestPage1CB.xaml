@@ -34,7 +34,7 @@
                     ItemTemplateType="{x:Type cells:MyCellTemplate}"
                     x:Name="StackCells"
                     Tag="Debug"
-
+                    ReserveTemplates="10"
                     RecyclingTemplate="Enabled"
                     MeasureItemsStrategy="MeasureVisible"
                     ItemsSource="{Binding Items}"

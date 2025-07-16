@@ -47,6 +47,8 @@ public partial class MyCellTemplate : AppCell
         var item = ctx as IMyData;
         if (item != null)
         {
+            ItemId.Text = $"{this.ContextIndex}";
+
             if (item.DataType == MyDataType.Group)
             {
                 SetGroupContent(item as MyGroup);
@@ -89,11 +91,26 @@ public partial class MyCellTemplate : AppCell
                 {
                     if (group.IsExpanded)
                     {
+                        //scroll to top to take full screen
+                        //Tasks.StartDelayed(TimeSpan.FromMilliseconds(50),
+                        //    () => { scroll.ScrollToIndex(this.ContextIndex, true, RelativePositionType.Start, true); });
+
+                        //we will know where is our data index only when it really opens
+                        //in next frame, so we wait a bit
                         Tasks.StartDelayed(TimeSpan.FromMilliseconds(50),
-                            () => { scroll.ScrollToIndex(this.ContextIndex, true, RelativePositionType.Start, true); });
+                            () => 
+                            {
+                                var firstDataCellIndex = this.ContextIndex + 1;
+                                if (layout.LastVisibleIndex <= firstDataCellIndex)
+                                {
+                                    //show data first row if not visible  
+                                    scroll.ScrollToIndex(firstDataCellIndex, true, RelativePositionType.End, true);
+                                }
+                            });
                     }
                     else
                     {
+                        //scroll group header to center when closing  
                         Tasks.StartDelayed(TimeSpan.FromMilliseconds(50),
                             () => { scroll.ScrollToIndex(this.ContextIndex, true, RelativePositionType.Center, true); });
                     }
@@ -105,7 +122,6 @@ public partial class MyCellTemplate : AppCell
     private void SetItemContent(MyData item)
     {
         xamlGroup.IsVisible = false;
-
         xamlEntry.IsVisible = true;
 
         xamlItemText1.IsVisible = !string.IsNullOrEmpty(item.Text1);

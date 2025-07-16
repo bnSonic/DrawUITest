@@ -17,41 +17,6 @@
 
     </cells:AppCell.Resources>
 
-    <!-- Group Header - xamlGroup -->
-    <components:MyTapSkiaLayout
-        HeightRequest="50"
-        Tag="MyGroup"
-        UseCache="Operations"
-        x:Name="xamlGroup"
-        Type="Grid"
-        RowSpacing="0"
-        ColumnSpacing="0"
-        HorizontalOptions="Fill"
-        BackgroundColor="Green"
-        ColumnDefinitions="50, *">
-
-        <draw:SkiaSvg
-            UseCache="Operations"
-            x:Name="xamlGroupExpandIndicator"
-            Grid.Column="0"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            LockRatio="1"
-            TintColor="White"
-            WidthRequest="15" />
-
-        <!-- Text="{Binding Title}" -->
-        <draw:SkiaLabel
-            VerticalOptions="Center"
-            x:Name="xamlGroupTitle"
-            Grid.Column="1"
-            Margin="10, 10, 10, 10"
-            FontSize="15"
-            TextColor="White"
-            UseCache="Operations" />
-
-    </components:MyTapSkiaLayout>
-
     <!-- Entry Daten - xamlEntry -->
     <draw:SkiaLayout
         Tag="MyData"
@@ -170,5 +135,44 @@
             BackgroundColor="Green" />
 
     </draw:SkiaLayout>
+
+    <!-- Group Header - xamlGroup -->
+    <components:MyTapSkiaLayout
+        HeightRequest="50"
+        Tag="MyGroup"
+        UseCache="Operations"
+        x:Name="xamlGroup"
+        Type="Grid"
+        RowSpacing="0"
+        ColumnSpacing="0"
+        HorizontalOptions="Fill"
+        BackgroundColor="Green"
+        ColumnDefinitions="50, *">
+
+        <draw:SkiaSvg
+            UseCache="Operations"
+            x:Name="xamlGroupExpandIndicator"
+            Grid.Column="0"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            LockRatio="1"
+            TintColor="White"
+            WidthRequest="15" />
+
+        <!-- Text="{Binding Title}" -->
+        <draw:SkiaLabel
+            VerticalOptions="Center"
+            x:Name="xamlGroupTitle"
+            Grid.Column="1"
+            Margin="10, 10, 10, 10"
+            FontSize="15"
+            TextColor="White"
+            UseCache="Operations" />
+
+    </components:MyTapSkiaLayout>
+
+    <draw:SkiaLabel 
+        x:Name="ItemId"
+        Margin="16" TextColor="DarkRed" HorizontalOptions="End" VerticalOptions="Center"/>
 
 </cells:AppCell>

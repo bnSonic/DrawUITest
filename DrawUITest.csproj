@@ -58,7 +58,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AppoMobi.Maui.DrawnUi" Version="1.6.2.2" />
+		<PackageReference Include="AppoMobi.Maui.DrawnUi" Version="1.6.2.4" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.70" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 	</ItemGroup>
@@ -72,7 +72,6 @@
 		<EmbeddedResource Include="Images\arrow_right.svg" />
 		<EmbeddedResource Include="Images\boards.svg" />
 	</ItemGroup>
-
 
 
 </Project>
