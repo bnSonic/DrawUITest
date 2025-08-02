@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrawUITest.MainPage">
 
@@ -12,6 +13,25 @@
                 HeightRequest="185"
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a hovercraft number nine" />
+
+            <Grid HeightRequest="30"
+                  WidthRequest="100">
+                <draw:Canvas
+                    Gestures="Enabled"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
+                    <draw:SkiaSwitch 
+                        IsToggled="True"
+                        WidthRequest="50"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        ColorThumbOff="whitesmoke"
+                        ColorThumbOn="White"
+                        ColorFrameOff="Gray"
+                        ColorFrameOn="Green"
+                        />
+                </draw:Canvas>
+            </Grid>
 
             <Button
                 x:Name="xamlDemoCodeBehind"

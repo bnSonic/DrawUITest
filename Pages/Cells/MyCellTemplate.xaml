@@ -18,124 +18,164 @@
     </cells:AppCell.Resources>
 
     <!-- Entry Daten - xamlEntry -->
-    <draw:SkiaLayout
-        Tag="MyData"
-        UseCache="Operations"
-        x:Name="xamlEntry"
-        Type="Grid"
-        RowSpacing="0"
-        ColumnSpacing="0"
-        HorizontalOptions="Fill"
-        BackgroundColor="White"
-        ColumnDefinitions="50, *"
-        RowDefinitions="Auto">
-
-        <!--LINES PREV NEXT-->
-        <draw:SkiaLayout
-            UseCache="Operations"
-            Grid.Column="0"
-            Type="Grid"
-            RowSpacing="0"
-            ColumnDefinitions="*"
-            RowDefinitions="*, *">
-            <!-- IsVisible="{Binding HasPrev}" -->
-            <draw:SkiaControl
-                x:Name="xamlLinePrev"
-                Grid.Row="0"
+    <components:MySwipeView
+        x:Name="xamlEntry">
+        <components:MySwipeView.ContextView>
+            <draw:SkiaLayout 
+                Tag="MyDataContext"
+                UseCache="Operations"
+                x:Name="xamlEntryContext"
+                Type="Row"
+                Spacing="0"
                 VerticalOptions="Fill"
-                HorizontalOptions="Center"
-                WidthRequest="5"
-                BackgroundColor="Blue" />
+                HorizontalOptions="End"
+                BackgroundColor="Orange">
+                <draw:SkiaLayout
+                    Padding="10, 0, 10, 0"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Start"
+                    BackgroundColor="DarkRed">
+                    <draw:SkiaLabel
+                        Text="Red"
+                        TextColor="White"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                </draw:SkiaLayout>
+                <draw:SkiaLayout
+                    Padding="10, 0, 10, 0"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Start"
+                    BackgroundColor="green">
+                    <draw:SkiaLabel
+                        Text="Green"
+                        TextColor="White"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                </draw:SkiaLayout>
+            </draw:SkiaLayout>
+        </components:MySwipeView.ContextView>
+            
+        <components:MySwipeView.MainView>
+            <draw:SkiaLayout
+                Tag="MyData"
+                UseCache="Operations"
+                
+                Type="Grid"
+                RowSpacing="0"
+                ColumnSpacing="0"
+                HorizontalOptions="Fill"
+                BackgroundColor="White"
+                ColumnDefinitions="50, *"
+                RowDefinitions="Auto">
 
-            <!-- IsVisible="{Binding HasNext}" -->
-            <draw:SkiaControl
-                x:Name="xamlLineNext"
-                Grid.Row="1"
-                VerticalOptions="Fill"
-                HorizontalOptions="Center"
-                WidthRequest="5"
-                BackgroundColor="Blue" />
+                <!--LINES PREV NEXT-->
+                <draw:SkiaLayout
+                    UseCache="Operations"
+                    Grid.Column="0"
+                    Type="Grid"
+                    RowSpacing="0"
+                    ColumnDefinitions="*"
+                    RowDefinitions="*, *">
+                    <!-- IsVisible="{Binding HasPrev}" -->
+                    <draw:SkiaControl
+                        x:Name="xamlLinePrev"
+                        Grid.Row="0"
+                        VerticalOptions="Fill"
+                        HorizontalOptions="Center"
+                        WidthRequest="5"
+                        BackgroundColor="Blue" />
 
-        </draw:SkiaLayout>
+                    <!-- IsVisible="{Binding HasNext}" -->
+                    <draw:SkiaControl
+                        x:Name="xamlLineNext"
+                        Grid.Row="1"
+                        VerticalOptions="Fill"
+                        HorizontalOptions="Center"
+                        WidthRequest="5"
+                        BackgroundColor="Blue" />
 
-        <!--ICON CIRCLE-->
-        <draw:SkiaLayout
-            Tag="IconCircle"
-            UseCache="Operations"
-            Grid.Column="0"
-            HeightRequest="50"
-            HorizontalOptions="Fill"
-            VerticalOptions="Center">
-            <draw:SkiaShape
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                StrokeColor="Blue"
-                StrokeWidth="5"
-                BackgroundColor="Azure"
-                Tag="ShapePath"
-                Type="Circle"
-                WidthRequest="40"
-                LockRatio="1" />
-            <draw:SkiaSvg
-                x:Name="xamlItemIcon"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                LockRatio="1"
-                WidthRequest="20" />
-        </draw:SkiaLayout>
+                </draw:SkiaLayout>
 
-        <!--TEXT-->
-        <draw:SkiaLayout
-            Grid.Column="1"
-            UseCache="Operations"
-            HorizontalOptions="Fill"
-            VerticalOptions="Center"
-            Type="Column"
-            Spacing="0">
+                <!--ICON CIRCLE-->
+                <draw:SkiaLayout
+                    Tag="IconCircle"
+                    UseCache="Operations"
+                    Grid.Column="0"
+                    HeightRequest="50"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center">
+                    <draw:SkiaShape
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        StrokeColor="Blue"
+                        StrokeWidth="5"
+                        BackgroundColor="Azure"
+                        Tag="ShapePath"
+                        Type="Circle"
+                        WidthRequest="40"
+                        LockRatio="1" />
+                    <draw:SkiaSvg
+                        x:Name="xamlItemIcon"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        LockRatio="1"
+                        WidthRequest="20" />
+                </draw:SkiaLayout>
 
-            <!-- IsVisible="{Binding Text1, Converter={StaticResource EmptyValueToBoolConverter}}"
-                Text="{Binding Text1}" -->
-            <draw:SkiaLabel
-                x:Name="xamlItemText1"
-                Margin="10, 5, 10, 5"
-                FontSize="15"
-                Tag="Text1"
-                TextColor="Black"
-                UseCache="Operations" />
+                <!--TEXT-->
+                <draw:SkiaLayout
+                    Grid.Column="1"
+                    UseCache="Operations"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center"
+                    Type="Column"
+                    Spacing="0">
 
-            <!-- IsVisible="{Binding Text2, Converter={StaticResource EmptyValueToBoolConverter}}"
-                Text="{Binding Text2}" -->
-            <draw:SkiaLabel
-                x:Name="xamlItemText2"
-                Margin="10, 5, 10, 5"
-                FontSize="13"
-                Tag="Text2"
-                TextColor="DarkGray"
-                UseCache="Operations" />
+                    <!-- IsVisible="{Binding Text1, Converter={StaticResource EmptyValueToBoolConverter}}"
+                        Text="{Binding Text1}" -->
+                    <draw:SkiaLabel
+                        x:Name="xamlItemText1"
+                        Margin="10, 5, 10, 5"
+                        FontSize="15"
+                        Tag="Text1"
+                        TextColor="Black"
+                        UseCache="Operations" />
 
-            <!-- IsVisible="{Binding Text3, Converter={StaticResource EmptyValueToBoolConverter}}"
-                Text="{Binding Text3}" -->
-            <draw:SkiaLabel
-                x:Name="xamlItemText3"
-                Margin="10, 5, 10, 5"
-                FontSize="13"
-                Tag="Text3"
-                TextColor="DarkGray"
-                UseCache="Operations" />
+                    <!-- IsVisible="{Binding Text2, Converter={StaticResource EmptyValueToBoolConverter}}"
+                        Text="{Binding Text2}" -->
+                    <draw:SkiaLabel
+                        x:Name="xamlItemText2"
+                        Margin="10, 5, 10, 5"
+                        FontSize="13"
+                        Tag="Text2"
+                        TextColor="DarkGray"
+                        UseCache="Operations" />
 
-        </draw:SkiaLayout>
+                    <!-- IsVisible="{Binding Text3, Converter={StaticResource EmptyValueToBoolConverter}}"
+                        Text="{Binding Text3}" -->
+                    <draw:SkiaLabel
+                        x:Name="xamlItemText3"
+                        Margin="10, 5, 10, 5"
+                        FontSize="13"
+                        Tag="Text3"
+                        TextColor="DarkGray"
+                        UseCache="Operations" />
 
-        <!--SEPARATOR LINE-->
-        <draw:SkiaControl
-            UseCache="Operations"
-            Grid.Column="1"
-            HorizontalOptions="Fill"
-            VerticalOptions="Start"
-            HeightRequest="1"
-            BackgroundColor="Green" />
+                </draw:SkiaLayout>
 
-    </draw:SkiaLayout>
+                <!--SEPARATOR LINE-->
+                <draw:SkiaControl
+                    UseCache="Operations"
+                    Grid.Column="1"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="End"
+                    HeightRequest="1"
+                    BackgroundColor="Green" />
 
+            </draw:SkiaLayout>
+        </components:MySwipeView.MainView>
+    </components:MySwipeView>
+    
     <!-- Group Header - xamlGroup -->
     <components:MyTapSkiaLayout
         HeightRequest="50"

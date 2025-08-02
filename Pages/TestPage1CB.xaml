@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
              xmlns:cells="clr-namespace:DrawUITest.Pages.Cells"
+             xmlns:components="clr-namespace:DrawUITest.Components"
              xmlns:viewModels="clr-namespace:DrawUITest.ViewModels"
              x:Class="DrawUITest.Pages.TestPage1CB"
              x:DataType="viewModels:MyDataList"
@@ -30,7 +31,7 @@
                 VerticalOptions="Fill"
                 Bounces="True">
 
-                <draw:SkiaStack
+                <components:MyMainSkiaStack
                     ItemTemplateType="{x:Type cells:MyCellTemplate}"
                     x:Name="StackCells"
                     Tag="Debug"

@@ -25,7 +25,7 @@ public class MyDataList : BaseViewModel
     //public BulkObservableCollection<IMyData> Items { get; set; } = new();
     public ObservableCollection<IMyData> Items { get; set; } = new();
 
-    public ObservableRangeCollection<MyGroup> Groups { get; set; } = new();
+    //public ObservableRangeCollection<MyGroup> Groups { get; set; } = new();
 
     private List<string> _text1List = new()
     {
@@ -94,37 +94,37 @@ public class MyDataList : BaseViewModel
     /// <summary>
     /// NEW groups approach: something to load "all" data from database 
     /// </summary>
-    public void LoadDataGroups()
-    {
-        Data.Clear();
+    // public void LoadDataGroups()
+    // {
+    //     Data.Clear();
 
-        int counter = 0;
-        DateTime dt = new DateTime(2025, 06, 26);
+    //     int counter = 0;
+    //     DateTime dt = new DateTime(2025, 06, 26);
 
-        var newData = new List<IMyData>();
-        while (counter < 200)
-        {
-            if (counter % 10 == 0)
-            {
-                dt = dt.AddDays(1);
-            }
+    //     var newData = new List<IMyData>();
+    //     while (counter < 200)
+    //     {
+    //         if (counter % 10 == 0)
+    //         {
+    //             dt = dt.AddDays(1);
+    //         }
 
-            var entry = new MyData(
-                counter,
-                dt.ToString("dd.MM.yyyy"),
-                _text1List[counter % _text1List.Count],
-                _text2List[counter % _text2List.Count],
-                _text3List[counter % _text3List.Count]
-            );
+    //         var entry = new MyData(
+    //             counter,
+    //             dt.ToString("dd.MM.yyyy"),
+    //             _text1List[counter % _text1List.Count],
+    //             _text2List[counter % _text2List.Count],
+    //             _text3List[counter % _text3List.Count]
+    //         );
 
-            entry.IsVisible = false; //default 
-            newData.Add(entry);
+    //         entry.IsVisible = false; //default 
+    //         newData.Add(entry);
 
-            counter++;
-        }
+    //         counter++;
+    //     }
 
-        Groups.AddRange(CreateGroups(newData));
-    }
+    //     Groups.AddRange(CreateGroups(newData));
+    // }
 
     /// <summary>
     /// Refills the Items by selecting from Data
@@ -159,38 +159,38 @@ public class MyDataList : BaseViewModel
     /// Creates groups from data and returns a list of MyGroup objects, each containing their children.
     /// This replaces the flat list approach for better performance during expand/collapse operations.
     /// </summary>
-    public List<MyGroup> CreateGroups(List<IMyData> data)
-    {
-        var sortedData = data
-            .Where(i => i.DataType == MyDataType.Data)
-            .OrderBy(i => i.GroupKey)
-            .ToList();
+    // public List<MyGroup> CreateGroups(List<IMyData> data)
+    // {
+    //     var sortedData = data
+    //         .Where(i => i.DataType == MyDataType.Data)
+    //         .OrderBy(i => i.GroupKey)
+    //         .ToList();
 
-        var groups = new List<MyGroup>();
+    //     var groups = new List<MyGroup>();
 
-        string lastGroupKey = string.Empty;
-        MyGroup currentGroup = null;
+    //     string lastGroupKey = string.Empty;
+    //     MyGroup currentGroup = null;
 
-        foreach (var entry in sortedData)
-        {
-            if (entry.GroupKey != lastGroupKey)
-            {
-                currentGroup = new MyGroup(entry.GroupKey, entry.GroupKey);
-                currentGroup.GroupTappedCommand = this.GroupTappedCommand;
-                currentGroup.IsVisible = true;
-                currentGroup.IsExpanded = true;
-                groups.Add(currentGroup);
+    //     foreach (var entry in sortedData)
+    //     {
+    //         if (entry.GroupKey != lastGroupKey)
+    //         {
+    //             currentGroup = new MyGroup(entry.GroupKey, entry.GroupKey);
+    //             currentGroup.GroupTappedCommand = this.GroupTappedCommand;
+    //             currentGroup.IsVisible = true;
+    //             currentGroup.IsExpanded = true;
+    //             groups.Add(currentGroup);
 
-                lastGroupKey = entry.GroupKey;
-            }
+    //             lastGroupKey = entry.GroupKey;
+    //         }
 
-            entry.IsVisible = true;
-            entry.Parent = currentGroup;
-            currentGroup.Children.Add(entry);
-        }
+    //         entry.IsVisible = true;
+    //         entry.Parent = currentGroup;
+    //         currentGroup.Children.Add(entry);
+    //     }
 
-        return groups;
-    }
+    //     return groups;
+    // }
 
     /// <summary>
     /// sort the Data and insert group entries where needed
