@@ -1,20 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
              xmlns:cells="clr-namespace:DrawUITest.Pages.Cells"
-             xmlns:components="clr-namespace:DrawUITest.Components"
-             xmlns:viewModels="clr-namespace:DrawUITest.ViewModels"
-             x:Class="DrawUITest.Pages.TestPage1CB"
-             x:DataType="viewModels:MyDataList"
-             Title="Cells using CodeBehind; No Binding">
-
+             x:Class="DrawUITest.Pages.TestPage2"
+             Title="TestPage2">
 
     <draw:Canvas
         Gestures="Lock"
         RenderingMode="Accelerated"
-        BackgroundColor="WhiteSmoke"
+        BackgroundColor="{DynamicResource BaseBackgroundColor}"
         HorizontalOptions="Fill"
         VerticalOptions="Fill">
 
@@ -31,8 +26,8 @@
                 VerticalOptions="Fill"
                 Bounces="True">
 
-                <components:MyMainSkiaStack
-                    ItemTemplateType="{x:Type cells:MyCellTemplate}"
+                <draw:SkiaStack
+                    ItemTemplateType="{x:Type cells:DayLayout}"
                     x:Name="StackCells"
                     Tag="Debug"
                     ReserveTemplates="10"
@@ -42,31 +37,7 @@
                     Spacing="0"/>
 
             </draw:SkiaScroll>
-
-            <draw:SkiaLabel
-                Margin="8,0,8,50"
-                Padding="2"
-                UseCache="Operations"
-                BackgroundColor="Black"
-                HorizontalOptions="Fill"
-                InputTransparent="True"
-                Text="{Binding Source={x:Reference StackCells}, Path=DebugString}"
-                TextColor="Lime"
-                VerticalOptions="End" />
-
-            <draw:SkiaLabelFps
-                Margin="0,0,4,24"
-                BackgroundColor="DarkRed"
-                ForceRefresh="False"
-                HorizontalOptions="End"
-                Rotation="-45"
-                TextColor="White"
-                VerticalOptions="End"
-                ZIndex="100" />
-
         </draw:SkiaLayout>
-
     </draw:Canvas>
-
 
 </ContentPage>

@@ -12,12 +12,12 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseDrawnUi(new()
             {
-                DesktopWindow = new()
-                {
-                    Width = 370,
-                    Height = 750,
-                    //IsFixedSize = true
-                }
+                // DesktopWindow = new()
+                // {
+                //     Width = 370,
+                //     Height = 750,
+                //     //IsFixedSize = true
+                // }
             })
 			.ConfigureFonts(fonts =>
 			{

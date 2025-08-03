@@ -45,6 +45,11 @@
                 Clicked="xamlDemoBinding_Clicked"
                 />
 
+            <Button
+                x:Name="xamlDemo2"
+                Text="DrawUI List 2"
+                Clicked="xamlDemo2_Clicked"
+                />
         </VerticalStackLayout>
     </ScrollView>
 
