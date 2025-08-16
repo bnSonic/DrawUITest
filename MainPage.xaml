@@ -45,6 +45,12 @@
                 Clicked="xamlDemoBinding_Clicked"
                 />
 
+            <Button
+                x:Name="xamlTest2"
+                Text="TestPage 2"
+                Clicked="xamlTest2_Clicked"
+                />
+
         </VerticalStackLayout>
     </ScrollView>
 

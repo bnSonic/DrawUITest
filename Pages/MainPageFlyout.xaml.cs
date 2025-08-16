@@ -7,5 +7,6 @@ public partial class MainPageFlyout : FlyoutPage
 		InitializeComponent();
 		Flyout = new MainMenuPage();
 		Detail = new NavigationPage(new MainPage());
+		IsGestureEnabled = false;
 	}
 }

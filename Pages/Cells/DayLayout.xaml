@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<cells:AppCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:cells="clr-namespace:DrawUITest.Pages.Cells"
+		    xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
+			x:Class="DrawUITest.Pages.Cells.DayLayout"
+            HorizontalOptions="Fill"
+            UseCache="ImageDoubleBuffered">
+
+    <!-- Hintergrund -->
+    <draw:SkiaLayout
+        Tag="DayBackground"
+        UseCache="Operations"
+        
+        Type="Grid"
+        RowSpacing="0"
+        ColumnSpacing="0"
+        HorizontalOptions="Fill"
+        BackgroundColor="{DynamicResource BaseBackgroundColor}"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto">
+
+        <!-- Kachel für den Tag -->
+        <draw:SkiaShape
+            Grid.Row="0"
+            Grid.Column="0"
+            Tag="DayTile"
+            UseCache="Operations"
+            Type="Rectangle"
+            BackgroundColor="WhiteSmoke"
+            CornerRadius="10"
+            StrokeColor="LightGrey"
+            StrokeWidth="1"
+            HorizontalOptions="Fill"
+            VerticalOptions="Start"
+            Margin="5, 5, 5, 5">
+        
+            <draw:SkiaLayout
+                Tag="DayContent"
+                UseCache="Operations"
+                Type="Column"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start">
+
+                <!-- Titel für den Tag -->
+                <draw:SkiaLayout
+                    Tag="DayHeader"
+                    UseCache="Operations"
+                    
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Start"
+                    BackgroundColor="CadetBlue"
+
+                    Type="Grid"
+                    ColumnDefinitions="*"
+                    RowDefinitions="Auto"
+                    Padding="10, 5, 10, 5"
+                    >
+
+                    <!-- Datum Titel -->
+                    <draw:SkiaLabel
+                        Tag="DayTitleLabel"
+                        UseCache="Operations"
+                        Grid.Column="0"
+                        Grid.Row="0"
+
+                        Text="{Binding Text}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        x:Name="xamlDayTitle"
+                        FontSize="15"
+                        TextColor="Black"
+                        />
+                </draw:SkiaLayout>
+
+                <!-- a) keine Daten -->
+                <draw:SkiaLayout
+                    Tag="DayContentNoData"
+                    UseCache="Operations"
+                    
+                    Type="Column"
+                    RowSpacing="0"
+                    ColumnSpacing="0"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="WhiteSmoke"
+                    >
+                    <draw:SkiaLabel
+                        Tag="DayNoDataLabel"
+                        UseCache="Operations"
+                        Text="keine Daten"
+                        VerticalOptions="Center"
+                        x:Name="xamlNoDataLabel"
+                        Margin="10, 10, 10, 10"
+                        FontSize="15"
+                        TextColor="Black"
+                        />
+                </draw:SkiaLayout>
+
+            </draw:SkiaLayout>           
+        </draw:SkiaShape>
+    </draw:SkiaLayout>
+
+</cells:AppCell>

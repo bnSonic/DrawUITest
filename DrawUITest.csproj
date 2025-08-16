@@ -58,8 +58,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AppoMobi.Maui.DrawnUi" Version="1.6.2.6" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.70" />
+		<PackageReference Include="AppoMobi.Maui.DrawnUi" Version="1.6.2.19" />
+    	<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.90" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 	</ItemGroup>
 

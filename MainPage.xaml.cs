@@ -21,4 +21,9 @@ public partial class MainPage : ContentPage
 		var page = new TestPage1Bind();
 		await Navigation.PushAsync(page);
     }
+	private async void xamlTest2_Clicked(object sender, EventArgs e)
+	{
+		var page = new TestPage2();
+		await Navigation.PushAsync(page);
+    }
 }
