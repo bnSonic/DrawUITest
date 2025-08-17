@@ -19,7 +19,7 @@ public class DataList
 	{
 		for (int i = 0; i < 14; i++)
 		{
-			Items.Add(new CellData { Text = $"Item {i}" });
+			Items.Add(new CellData { Text = $"Item" });
 			//Items.Add(new CellData { Text = $"Item" });
 		}
 	}

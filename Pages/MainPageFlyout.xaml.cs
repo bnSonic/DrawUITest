@@ -6,6 +6,8 @@ public partial class MainPageFlyout : FlyoutPage
 	{
 		InitializeComponent();
 		Flyout = new MainMenuPage();
-		Detail = new NavigationPage(new MainPage());
+        IsGestureEnabled = false;
+        FlyoutLayoutBehavior = FlyoutLayoutBehavior.Popover;
+        Detail = new NavigationPage(new MainPage());
 	}
 }
