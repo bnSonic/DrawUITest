@@ -4,6 +4,7 @@ using DrawnUi.Controls;
 using DrawnUi.Draw;
 using DrawUITest.Components;
 using DrawUITest.ViewModels;
+using SkiaSharp;
 
 namespace DrawUITest.Pages.Cells;
 
@@ -17,6 +18,33 @@ public partial class MyCellTemplate : AppCell
     {
         InitializeComponent();
     }
+
+    public override void DrawPlaceholder(DrawingContext context)
+    {
+        var margins = xamlEntry.Margins;
+        var area =
+            new SKRect((float)(context.Destination.Left + margins.Left * context.Scale),
+                (float)(context.Destination.Top + margins.Top * context.Scale),
+                (float)(context.Destination.Right - margins.Right * context.Scale),
+                (float)(context.Destination.Bottom - margins.Bottom * context.Scale));
+
+        PaintPlaceholder ??= new SKPaint
+        {
+            Color = SKColor.Parse("#EFEFEF"),
+            Style = SKPaintStyle.Fill,
+        };
+
+        context.Context.Canvas.DrawRect(area, PaintPlaceholder);
+    }
+
+    public override void OnWillDisposeWithChildren()
+    {
+        base.OnWillDisposeWithChildren();
+
+        PaintPlaceholder?.Dispose();
+    }
+
+    private SKPaint PaintPlaceholder;
 
     /// <summary>
     /// Dynamic changes
